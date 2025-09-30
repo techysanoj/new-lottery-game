@@ -1,0 +1,47 @@
+/* index.css or global stylesheet */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  :root{
+    --orange-1: #ff6a00;
+    --orange-2: #ff8a00;
+    --yellow-1: #ffd400;
+    --yellow-2: #ffc107;
+    --deep-orange: #f05a28;
+    --border-dark: #3b2f2f;
+  }
+  
+  * { box-sizing: border-box; }
+  html,body,#root { height: 100%; }
+  body {
+    margin: 0;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    background: #fff;
+    color: #222;
+  }
+  
+  .app {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  /* container used by many components */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 18px;
+  }
+  .main-content {
+    max-width: 900px;
+    margin: 28px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    align-items: center;
+  }
+  
+  

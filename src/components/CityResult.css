@@ -1,0 +1,43 @@
+.city-result {
+    margin: 25px auto;
+    padding: 20px;
+    max-width: 400px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .city-result h2 {
+    font-size: 25px;
+    font-weight: bold;
+    color: #d9534f;
+    margin: 0;
+  }
+  
+  .city-result .status {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 6px 12px;
+    background: red;
+    color: white;
+    font-weight: bold;
+    border-radius: 50%; /* circle */
+    font-size: 14px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    animation: status-blink-shape 1s infinite ease-in-out;
+  }
+  
+  /* Blinking + morph */
+  @keyframes status-blink-shape {
+    0%, 100% {
+      background: red;  
+      color: white;             /* default color */
+      border-radius: 50%;            /* circle */
+      transform: scale(1);
+    }
+    50% {
+      background: #ffd800;           /* lighter red */
+      color: black;
+      border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; /* organic blob shape */
+      transform: scale(1.1);         /* small pulse */
+    }
+  }
+  

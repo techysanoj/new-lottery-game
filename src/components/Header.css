@@ -1,0 +1,61 @@
+/* Container */
+.header-container {
+  text-align: center;
+  padding: 20px 0;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: center;
+  gap: 60px; /* spacing between buttons */
+  margin-bottom: 20px;
+}
+
+/* Buttons */
+.nav-btn {
+  padding: 15px 100px; /* size matches screenshot */
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 12px;
+  border: 1px solid black;
+  background-color: #ffd700; /* yellow default */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #000;
+}
+
+.nav-btn:hover {
+  transform: scale(1.05);
+}
+
+/* Active (selected) button */
+.nav-btn.active {
+  background-color: #ff5722; /* orange */
+  color: #000;
+}
+
+/* Marquee */
+.marquee-container {
+  overflow: hidden;
+  white-space: nowrap;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.marquee-text {
+  display: inline-block;
+  padding-left: 100%;
+  animation: marquee 15s linear infinite;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}

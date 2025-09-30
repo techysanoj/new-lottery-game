@@ -1,0 +1,76 @@
+.dealer-box {
+    background: linear-gradient(to bottom, #ffd700, #fff3a5, #fffce5);
+    padding: 25px;
+    margin: 25px auto;
+    border: 2px dashed red;
+    border-radius: 15px;
+    max-width: auto;
+    text-align: center;
+  }
+  
+  .dealer-subtitle {
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #222;
+  }
+  
+  .dealer-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #111;
+    margin: 10px 0;
+  }
+  
+  .dealer-timings {
+    list-style: none;
+    padding: 0;
+    margin: 15px 0;
+    text-align: left;
+    max-width: auto;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  
+  .dealer-timings li {
+    margin: 4px 0;
+  }
+  
+  .dealer-rates {
+    margin: 20px 0;
+    font-weight: bold;
+  }
+  
+  .play-text {
+    margin: 15px 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #0056b3;
+  }
+  
+  .whatsapp-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 20px;
+    border-radius: 25px;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 14px;
+    background: #25d366;
+    color: white;
+    transition: 0.3s;
+  }
+  
+  .whatsapp-btn:hover {
+    background: #1ebe5d;
+  }
+  
+  .icon {
+    width: 28px;
+    height: 28px;
+  }
+  

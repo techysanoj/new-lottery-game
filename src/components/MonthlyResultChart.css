@@ -1,0 +1,53 @@
+.monthly-chart {
+    width: 100%;
+    margin: 30px auto;
+    font-family: Arial, sans-serif;
+    border-collapse: collapse;
+  }
+  
+  /* Title */
+  .chart-title {
+    background: linear-gradient(180deg, #ff9933, #ffcc00);
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    color: #000;
+    padding: 12px;
+    border-radius: 4px 4px 0 0;
+  }
+  
+  /* Table */
+  .monthly-chart table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+  }
+  
+  .monthly-chart th {
+    background: #ffd500;
+    color: #000;
+    font-weight: bold;
+    padding: 10px;
+    border: 1px solid #ddd;
+  }
+  
+  .monthly-chart td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    font-weight: bold;
+    font-size: 14px;
+  }
+  
+  /* First column (Date) */
+  .date-col {
+    background: linear-gradient(180deg, #ff5f1f, #ff9933);
+    color: #fff;
+    font-weight: bold;
+  }
+  
+  /* Other columns */
+  .value-col {
+    background: #fff;
+    color: #000;
+  }
+  

@@ -1,0 +1,27 @@
+.result-card {
+    width: 100%;
+    background: #fff;
+    padding: 18px 0;
+    border-top: 1px solid rgba(0,0,0,0.06);
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+  }
+  
+  .result-inner {
+    text-align: center;
+    padding: 28px 0;
+  }
+  
+  .result-title {
+    color: var(--deep-orange);
+    font-weight: 800;
+    font-size: 28px;
+    letter-spacing: 1px;
+  }
+  
+  .result-number {
+    margin-top: 12px;
+    font-size: 40px;
+    font-weight: 900;
+    color: #111;
+  }
+  

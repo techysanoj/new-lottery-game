@@ -1,0 +1,23 @@
+.header-title {
+    background: linear-gradient(to right, orange, #ffff00, orange);
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 110px;
+  }
+  
+  .header-title h1 {
+    margin: 0;
+    font-size: 40px;
+    font-weight: bold;
+    color: black;
+    animation: blink 1.2s infinite;
+  }
+  
+  @keyframes blink {
+    50% {
+      opacity: 0.4;
+    }
+  }
+  

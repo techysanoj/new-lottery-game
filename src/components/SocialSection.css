@@ -1,0 +1,62 @@
+.social-box {
+    background: linear-gradient(to bottom, #fff07a, #ffe97a, #fff5cc);
+    padding: 20px;
+    margin: 20px auto;
+    border: 2px dashed red;
+    border-radius: 15px;
+    text-align: center;
+    max-width: auto;
+  }
+  
+  .blink-text {
+    font-size: 16px;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 15px;
+    animation: blink 1.5s infinite;
+  }
+  
+  @keyframes blink {
+    50% {
+      opacity: 0.4;
+    }
+  }
+  
+  .icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+  }
+  
+  .whatsapp-btn,
+  .telegram-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 20px;
+    border-radius: 25px;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.3s;
+  }
+  
+  .whatsapp-btn {
+    background: #25d366;
+    color: white;
+  }
+  
+  .whatsapp-btn:hover {
+    background: #1ebe5d;
+  }
+  
+  .telegram-btn {
+    background: #0088cc;
+    color: white;
+  }
+  
+  .telegram-btn:hover {
+    background: #007ab8;
+  }
+  

@@ -1,0 +1,35 @@
+.footer-result {
+    background: linear-gradient(to right, yellow, orange);
+    padding: 20px;
+    border-radius: 10px 10px 0 0;
+  }
+  
+  .footer-result h2 {
+    margin: 0;
+    font-size: 30px;
+    font-weight: bold;
+  }
+  
+  .footer-result .time {
+    margin: 5px 0;
+    font-size: 25px;
+    color: #333;
+  }
+  
+  .footer-result .result-box {
+    font-size: 25px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .footer-result .left {
+    color: green;
+  }
+  
+  .footer-result .right {
+    color: #17a2b8;
+  }
+  

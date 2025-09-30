@@ -1,0 +1,15 @@
+/* HomePage.css */
+.homepage {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background: #fff;
+  min-height: 100vh;
+}
+
+.city-results {
+  margin: 20px 0;
+}
+
+.social-icons{
+  padding-bottom: 5px;
+}

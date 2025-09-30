@@ -1,0 +1,86 @@
+.result-table {
+    width: 100%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+  }
+  
+  .result-table table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+  }
+  
+  .result-table th {
+    background: #ffd500;
+    color: #000;
+    padding: 10px;
+    font-weight: bold;
+    border: 1px solid #ddd;
+  }
+  
+  /* First column (orange gradient) */
+  .city-col {
+    background: linear-gradient(180deg, #ff5f1f, #ff9933);
+    color: #000000;
+    font-weight: bold;
+    text-align: center;
+    padding: 12px;
+    border-bottom: 2px solid #fff;
+  }
+  
+  .city-name {
+    text-transform: uppercase;
+  }
+  
+  .city-time {
+    font-size: 12px;
+    margin-top: 4px;
+  }
+  
+  /* Second column (white with black text) */
+  .yesterday-col {
+    background: #fff;
+    color: #000;
+    font-weight: bold;
+    padding: 12px;
+    border-bottom: 2px solid #eee;
+  }
+  
+  /* Third column (white with WAIT badge or number) */
+  .today-col {
+    background: #fff;
+    color: #000;
+    font-weight: bold;
+    padding: 12px;
+    border-bottom: 2px solid #eee;
+  }
+  
+  .wait-badge {
+    display: inline-block;
+    background: #ffd500;
+    color: #000;
+    font-weight: bold;
+    padding: 6px 12px;
+    border-radius: 50%; /* circle */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    animation: blink-shape 1s infinite ease-in-out;
+  }
+  
+  /* Blinking + shape morph */
+  @keyframes blink-shape {
+    0%, 100% {
+      background: #ffd500;
+      border-radius: 50%; /* circle */
+      color: black;
+      transform: scale(1);
+    }
+    50% {
+      background: #ff3b3b; /* red */
+      color: white;
+      border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; /* "squished star-ish blob" */
+      transform: scale(1.1); /* pulsating */
+    }
+  }
+  
+  
