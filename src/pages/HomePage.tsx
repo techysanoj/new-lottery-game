@@ -1,5 +1,6 @@
 // pages/HomePage.jsx
 import "./HomePage.css";
+import { useEffect, useState } from "react";
 
 // Import components
 import DateTimeDisplay from "../components/DateTimeDisplay";
@@ -15,6 +16,32 @@ import Footer from "../components/Footer";
 import SattaInfo from "../components/SattaInfor";
 
 const HomePage = () => {
+  const [upcoming, setUpcoming] = useState([]);
+  const [primary, setPrimary] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch(
+          "https://a1-satta.com/_next/data/7FVxvYUZxYM7gu3HioaPS/index.json",
+          {
+            headers: {
+              "x-nextjs-data": "1",
+              accept: "*/*",
+            },
+          }
+        );
+        const json = await res.json();
+
+        setUpcoming(json.pageProps.upcoming || []);
+        setPrimary(json.pageProps.primary || []);
+      } catch (err) {
+        console.error("Error fetching data:", err);
+      }
+    };
+
+    fetchData();
+  }, []);
   const rows = [
     { city: "SADAR BAZAR", time: "01:40 PM", yesterday: "06", today: "WAIT" },
     { city: "GWALIOR", time: "02:40 PM", yesterday: "15", today: "WAIT" },
@@ -76,14 +103,27 @@ const HomePage = () => {
       {/* Dynamic Date & Time */}
       <DateTimeDisplay />
 
-      {/* City Results */}
+      {/* City Results from upcoming */}
       <div className="city-results">
-        <CityResult city="FARIDABAD" status="WAIT" />
-        <CityResult city="AGRA" status="WAIT" />
+        {upcoming.map((game) => (
+          <CityResult
+            key={game.gameName}
+            city={game.gameName.toUpperCase()}
+            status={isNaN(game.result) ? "WAIT" : game.result}
+          />
+        ))}
       </div>
 
-      {/* Footer Result */}
-      <FooterResult city="DISAWER" time="05:10 AM" left="48" right="17" />
+      {/* Footer Result from primary */}
+      {primary.map((p) => (
+        <FooterResult
+          key={p.gameName}
+          city={p.gameName.toUpperCase()}
+          time={p.createdAt}
+          left={p.yesterday}
+          right={p.today === -1 ? "WAIT" : p.today}
+        />
+      ))}
 
       {/* Social Sections */}
       <div className="social-icons">
