@@ -25,7 +25,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/lottery"); // proxy endpoint
+        const res = await fetch("https://lottery-r1m7.onrender.com/api/lottery"); // proxy endpoint
         const json = await res.json();
   
         // The API now returns { tablebox1: [...], tablebox2: [...], tablebox3: [...] }
@@ -40,7 +40,7 @@ const HomePage = () => {
             today: item.today && item.today !== "--" ? item.today : "WAIT",
           }));
         });
-        
+
   
         setTables(formattedTables);
       } catch (err) {
@@ -55,7 +55,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/lottery"); // use proxy!
+        const res = await fetch("https://lottery-r1m7.onrender.com/api/headers"); // use proxy!
         const json = await res.json();
   
         setUpcoming(json.pageProps?.upcoming || []);
@@ -75,7 +75,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchLuckyResults = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/lucky"); // adjust URL if needed
+        const res = await fetch("https://lottery-r1m7.onrender.com/api/lucky"); // adjust URL if needed
         const json = await res.json();
         console.log('json', json)
         setMonthTitle(json.title || "");

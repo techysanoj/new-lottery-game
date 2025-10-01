@@ -7,25 +7,25 @@ import cors from "cors";
 const app = express();
 app.use(cors()); // allow frontend access
 
-// app.get("/api/lottery", async (req, res) => {
-//   try {
-//     const response = await fetch(
-//       "https://a1-satta.com/_next/data/7FVxvYUZxYM7gu3HioaPS/index.json",
-//       {
-//         headers: {
-//           "accept": "*/*",
-//           "user-agent": "Mozilla/5.0"
-//         }
-//       }
-//     );
+app.get("/api/headers", async (req, res) => {
+  try {
+    const response = await fetch(
+      "https://a1-satta.com/_next/data/7FVxvYUZxYM7gu3HioaPS/index.json",
+      {
+        headers: {
+          "accept": "*/*",
+          "user-agent": "Mozilla/5.0"
+        }
+      }
+    );
 
-//     const data = await response.json();
-//     res.json(data);
-//   } catch (err) {
-//     console.error("Error fetching:", err);
-//     res.status(500).json({ error: "Failed to fetch data" });
-//   }
-// });
+    const data = await response.json();
+    res.json(data);
+  } catch (err) {
+    console.error("Error fetching:", err);
+    res.status(500).json({ error: "Failed to fetch data" });
+  }
+});
 
 
 
@@ -78,6 +78,8 @@ app.get("/api/lottery", async (req, res) => {
     }
   });
   
+
+
 
 // new route
 import * as cheerio from "cheerio";
