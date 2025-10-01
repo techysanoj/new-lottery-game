@@ -31,7 +31,7 @@ app.use(cors()); // allow frontend access
 
 app.get("/api/lottery", async (req, res) => {
     try {
-      const response = await fetch("https://a1-satta.com/", {
+      const response = await fetch("https://lucky-satta.com/", {
         headers: {
           "accept": "text/html,application/xhtml+xml",
           "user-agent": "Mozilla/5.0"
