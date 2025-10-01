@@ -57,9 +57,9 @@ const HomePage = () => {
       try {
         const res = await fetch("https://lottery-r1m7.onrender.com/api/headers"); // use proxy!
         const json = await res.json();
-  
-        setUpcoming(json.pageProps?.upcoming || []);
-        setPrimary(json.pageProps?.primary || []);
+        console.log('json', json)
+        setUpcoming(json.upcoming || []);
+        setPrimary(json.primary || []);
       } catch (err) {
         console.error("Error fetching data:", err);
       }

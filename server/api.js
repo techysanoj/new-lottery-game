@@ -7,25 +7,141 @@ import cors from "cors";
 const app = express();
 app.use(cors()); // allow frontend access
 
-app.get("/api/headers", async (req, res) => {
-  try {
-    const response = await fetch(
-      "https://a1-satta.com/_next/data/7FVxvYUZxYM7gu3HioaPS/index.json",
-      {
-        headers: {
-          "accept": "*/*",
-          "user-agent": "Mozilla/5.0"
-        }
-      }
-    );
+// app.get("/api/headers", async (req, res) => {
+//   try {
+//     const response = await fetch(
+//       "https://a1-satta.com/_next/data/7FVxvYUZxYM7gu3HioaPS/index.json",
+//       {
+//         headers: {
+//           "accept": "*/*",
+//           "user-agent": "Mozilla/5.0"
+//         }
+//       }
+//     );
 
-    const data = await response.json();
-    res.json(data);
-  } catch (err) {
-    console.error("Error fetching:", err);
-    res.status(500).json({ error: "Failed to fetch data" });
+//     const data = await response.json();
+//     res.json(data);
+//   } catch (err) {
+//     console.error("Error fetching:", err);
+//     res.status(500).json({ error: "Failed to fetch data" });
+//   }
+// });
+
+function parseTimeToHHMM(timeStr) {
+    if (!timeStr) return "";
+    const m = timeStr.match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i);
+    if (!m) return timeStr.trim();
+    let hour = parseInt(m[1], 10);
+    let min = parseInt(m[2], 10);
+    const ampm = m[3].toUpperCase();
+    if (ampm === "PM" && hour !== 12) hour += 12;
+    if (ampm === "AM" && hour === 12) hour = 0;
+  
+    // Round minutes to nearest 5 (keeps behaviour similar to your previous code)
+    const rounded = Math.round(min / 5) * 5;
+    if (rounded === 60) {
+      hour = (hour + 1) % 24;
+      min = 0;
+    } else {
+      min = rounded;
+    }
+  
+    return `${hour.toString().padStart(2, "0")}:${min.toString().padStart(2, "0")}`;
   }
-});
+  
+  app.get("/api/headers", async (req, res) => {
+    try {
+      const response = await fetch("https://lucky-satta.com/", {
+        headers: {
+          accept: "text/html,application/xhtml+xml",
+          "user-agent": "Mozilla/5.0",
+        },
+      });
+  
+      const html = await response.text();
+      const $ = cheerio.load(html);
+  
+      const upcoming = [];
+      const primary = [];
+  
+      // -------- UPCOMING --------
+      // handle possible whitespace nodes between .sattaname and .sattaresult
+      $(".sattaname").each((i, el) => {
+        const gameName = $(el).find("p").text().trim().toLowerCase();
+        const resultEl = $(el).nextAll(".sattaresult").first();
+        let resultText = resultEl.find("span").first().text().trim();
+        if (!resultText) resultText = resultEl.text().trim();
+        const resultNum = resultText === "" ? -1 : parseInt(resultText.replace(/\D/g, ""), 10) || -1;
+  
+        if (gameName) {
+          upcoming.push({
+            gameName,
+            result: resultNum,
+          });
+        }
+      });
+  
+      // -------- PRIMARY --------
+      // -------- PRIMARY --------
+$("section.sattadividerr").each((i, el) => {
+    // Extract game name with fallbacks
+    let gameName =
+      $(el).find("a.gamenameeach h3 strong").text().trim() ||
+      $(el).find("h3 strong").text().trim() ||
+      $(el).find("a.gamenameeach").text().trim();
+  
+    gameName = (gameName || "").toLowerCase();
+  
+    const timeText = $(el).find("p").first().text().trim();
+    const createdAt = parseTimeToHHMM(timeText);
+  
+    // Find the strong element that contains the results (not the game name strong)
+    const resultStrong = $(el).find("strong").eq(1); // Second strong element
+    
+    // If there's only one strong (game name), try finding strong with font-size style
+    const strong = resultStrong.length > 0 
+      ? resultStrong 
+      : $(el).find("strong[style*='font-size']").first();
+  
+    // Extract all text content and clean it
+    let strongText = strong.text().trim().replace(/\s+/g, ' ');
+    
+    // Extract all numbers from the strong text
+    const allNumbers = strongText.match(/\d+/g) || [];
+    
+    // Yesterday is the first number
+    const yesterday = allNumbers.length > 0 ? parseInt(allNumbers[0], 10) : -1;
+  
+    // Check if wait.gif is present
+    const hasWait = strong.find("img[src*='wait.gif']").length > 0;
+  
+    // If wait.gif exists, today = -1, otherwise try to get second number
+    let today = -1;
+    if (!hasWait) {
+      if (allNumbers.length >= 2) {
+        today = parseInt(allNumbers[1], 10);
+      } else {
+        // No second number but no wait.gif either - could mean result not yet updated
+        today = 0;
+      }
+    }
+  
+    if (gameName) {
+      primary.push({
+        yesterday,
+        gameName,
+        createdAt,
+        today,
+      });
+    }
+  });
+  
+      res.json({ upcoming, primary });
+    } catch (err) {
+      console.error("Error fetching headers data:", err);
+      res.status(500).json({ error: "Failed to scrape headers data" });
+    }
+  });
 
 
 
