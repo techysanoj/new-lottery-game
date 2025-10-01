@@ -19,84 +19,89 @@ const HomePage = () => {
   const [upcoming, setUpcoming] = useState([]);
   const [primary, setPrimary] = useState([]);
 
+  const [tables, setTables] = useState<{ [key: string]: any[] }>({}); 
+  // tables = { table1: [...rows], table2: [...rows], ... }
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(
-          "https://a1-satta.com/_next/data/7FVxvYUZxYM7gu3HioaPS/index.json",
-          {
-            headers: {
-              "x-nextjs-data": "1",
-              accept: "*/*",
-            },
-          }
-        );
+        const res = await fetch("http://localhost:5000/api/lottery"); // proxy endpoint
         const json = await res.json();
-
-        setUpcoming(json.pageProps.upcoming || []);
-        setPrimary(json.pageProps.primary || []);
+  
+        // The API now returns { tablebox1: [...], tablebox2: [...], tablebox3: [...] }
+        const formattedTables: { [key: string]: any[] } = {};
+  
+        Object.entries(json).forEach(([tableName, items]) => {
+          console.log("tableName, items", tableName, items);
+          formattedTables[tableName] = (items as any[]).map((item) => ({
+            city: (item.city || "").toUpperCase(),
+            time: item.time || "",
+            yesterday: item.yesterday && item.yesterday !== "--" ? item.yesterday : "-",
+            today: item.today && item.today !== "--" ? item.today : "WAIT",
+          }));
+        });
+        
+  
+        setTables(formattedTables);
       } catch (err) {
         console.error("Error fetching data:", err);
       }
     };
-
+  
     fetchData();
   }, []);
-  const rows = [
-    { city: "SADAR BAZAR", time: "01:40 PM", yesterday: "06", today: "WAIT" },
-    { city: "GWALIOR", time: "02:40 PM", yesterday: "15", today: "WAIT" },
-    { city: "DELHI BAZAR", time: "03:10 PM", yesterday: "28", today: "WAIT" },
-    { city: "DELHI MATKA", time: "03:40 PM", yesterday: "87", today: "WAIT" },
-    { city: "SHRI GANESH", time: "04:40 PM", yesterday: "34", today: "WAIT" },
-    { city: "AGRA", time: "05:30 PM", yesterday: "91", today: "WAIT" },
-    { city: "FARIDABAD", time: "06:10 PM", yesterday: "57", today: "WAIT" },
-    { city: "ALWAR", time: "07:30 PM", yesterday: "91", today: "WAIT" },
-    { city: "GAZIYABAD", time: "09:30 PM", yesterday: "10", today: "WAIT" },
-    { city: "DWARKA", time: "10:20 PM", yesterday: "39", today: "WAIT" },
-    { city: "GALI", time: "11:40 PM", yesterday: "95", today: "WAIT" },
-  ];
+  
 
-  const columns = [
-    "Date",
-    "SADAR BAZAR",
-    "GWALIOR",
-    "DELHI BAZAR",
-    "DELHI MATKA",
-    "SHRI GANESH",
-    "AGRA",
-    "FARIDABAD",
-    "ALWAR",
-    "GAZIYABAD",
-    "DWARKA",
-    "GALI",
-    "DISAWER"
-  ];
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch("http://localhost:5000/api/lottery"); // use proxy!
+        const json = await res.json();
+  
+        setUpcoming(json.pageProps?.upcoming || []);
+        setPrimary(json.pageProps?.primary || []);
+      } catch (err) {
+        console.error("Error fetching data:", err);
+      }
+    };
+  
+    fetchData();
+  }, []);
 
-  const data = [
-    ["01-09", "18", "86", "01", "72", "71", "98", "70", "33", "46", "49", "68", "--"],
-    ["02-09", "39", "74", "33", "62", "07", "95", "00", "35", "57", "38", "57", "66"],
-    ["02-09", "39", "74", "33", "62", "07", "95", "00", "35", "57", "38", "57", "66"],
-    ["02-09", "39", "74", "33", "62", "07", "95", "00", "35", "57", "38", "57", "66"],
-    ["02-09", "39", "74", "33", "62", "07", "95", "00", "35", "57", "38", "57", "66"],
-    ["02-09", "39", "74", "33", "62", "07", "95", "00", "35", "57", "38", "57", "66"],
-    ["02-09", "39", "74", "33", "62", "07", "95", "00", "35", "57", "38", "57", "66"],
-    ["02-09", "39", "74", "33", "62", "07", "95", "00", "35", "57", "38", "57", "66"],
-    ["02-09", "39", "74", "33", "62", "07", "95", "00", "35", "57", "38", "57", "66"],
-    ["03-09", "68", "04", "06", "77", "06", "13", "88", "79", "94", "19", "72", "70"],
-    ["03-09", "68", "04", "06", "77", "06", "13", "88", "79", "94", "19", "72", "70"],
-    ["03-09", "68", "04", "06", "77", "06", "13", "88", "79", "94", "19", "72", "70"],
-    ["04-09", "92", "68", "71", "51", "86", "02", "00", "60", "52", "34", "54", "73"],
-    ["04-09", "92", "68", "71", "51", "86", "02", "00", "60", "52", "34", "54", "73"],
-    ["04-09", "92", "68", "71", "51", "86", "02", "00", "60", "52", "34", "54", "73"],
-    ["04-09", "92", "68", "71", "51", "86", "02", "00", "60", "52", "34", "54", "73"],
-    ["04-09", "92", "68", "71", "51", "86", "02", "00", "60", "52", "34", "54", "73"],
-    ["01-09", "18", "86", "01", "72", "71", "98", "70", "33", "46", "49", "68", "--"],
-    ["01-09", "18", "86", "01", "72", "71", "98", "70", "33", "46", "49", "68", "--"],
-    ["01-09", "18", "86", "01", "72", "71", "98", "70", "33", "46", "49", "68", "--"],
-    ["04-09", "92", "68", "71", "51", "86", "02", "00", "60", "52", "34", "54", "73"],
-    ["04-09", "92", "68", "71", "51", "86", "02", "00", "60", "52", "34", "54", "73"],
-    // ... add more rows
-  ];
+
+  const [monthTitle, setMonthTitle] = useState("");
+  const [monthTables, setMonthTables] = useState([]);
+
+  useEffect(() => {
+    const fetchLuckyResults = async () => {
+      try {
+        const res = await fetch("http://localhost:5000/api/lucky"); // adjust URL if needed
+        const json = await res.json();
+        console.log('json', json)
+        setMonthTitle(json.title || "");
+        setMonthTables(json.tables || []);
+      } catch (err) {
+        console.error("Error fetching lucky results:", err);
+      }
+    };
+
+    fetchLuckyResults();
+  }, []);
+  
+
+  // const rows = [
+  //   { city: "SADAR BAZAR", time: "01:40 PM", yesterday: "06", today: "WAIT" },
+  //   { city: "GWALIOR", time: "02:40 PM", yesterday: "15", today: "WAIT" },
+  //   { city: "DELHI BAZAR", time: "03:10 PM", yesterday: "28", today: "WAIT" },
+  //   { city: "DELHI MATKA", time: "03:40 PM", yesterday: "87", today: "WAIT" },
+  //   { city: "SHRI GANESH", time: "04:40 PM", yesterday: "34", today: "WAIT" },
+  //   { city: "AGRA", time: "05:30 PM", yesterday: "91", today: "WAIT" },
+  //   { city: "FARIDABAD", time: "06:10 PM", yesterday: "57", today: "WAIT" },
+  //   { city: "ALWAR", time: "07:30 PM", yesterday: "91", today: "WAIT" },
+  //   { city: "GAZIYABAD", time: "09:30 PM", yesterday: "10", today: "WAIT" },
+  //   { city: "DWARKA", time: "10:20 PM", yesterday: "39", today: "WAIT" },
+  //   { city: "GALI", time: "11:40 PM", yesterday: "95", today: "WAIT" },
+  // ];
   return (
     <div className="homepage">
       
@@ -109,7 +114,7 @@ const HomePage = () => {
           <CityResult
             key={game.gameName}
             city={game.gameName.toUpperCase()}
-            status={isNaN(game.result) ? "WAIT" : game.result}
+            status={(game.result === -1)? "WAIT" : game.result}
           />
         ))}
       </div>
@@ -142,10 +147,12 @@ const HomePage = () => {
         whatsappLink="https://wa.me/9876543210" 
       />
 
-      {/* Result Table */}
-      <ResultTable rows={rows} />
-      <ResultTable rows={rows} />
-      <ResultTable rows={rows} />
+      {/* Render one ResultTable per table dynamically */}
+      {Object.entries(tables).map(([tableName, rows]) => (
+          <div key={tableName} className="mb-6">
+            <ResultTable rows={rows} />
+          </div>
+        ))}
 
       {/* Dealer Contact Info */}
       <DealerContact 
@@ -153,11 +160,21 @@ const HomePage = () => {
         whatsappLink="https://wa.me/1234567890" 
       />
 
-      <MonthlyResultChart
+      {/* <MonthlyResultChart
               title="SEPTEMBER 2025 RESULT CHART"
               columns={columns}
               data={data}
-            />
+            /> */}
+
+      {monthTables.map((table, idx) => (
+              <div key={idx} className="mb-8">
+                <MonthlyResultChart
+                  title={monthTitle}
+                  columns={table.columns}
+                  data={table.data}
+                />
+              </div>
+            ))}
       
       
       <SattaInfo/>
