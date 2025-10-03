@@ -7,6 +7,59 @@ import cors from "cors";
 const app = express();
 app.use(cors()); // allow frontend access
 
+
+import mongoose from "mongoose";
+
+// ✅ connect to MongoDB Atlas
+mongoose.connect(process.env.MONGO_URI || "your-mongodb-uri-here", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+mongoose.connection.on("connected", () => {
+  console.log("✅ MongoDB connected");
+});
+mongoose.connection.on("error", (err) => {
+  console.error("❌ MongoDB connection error:", err);
+});
+
+const GameSchema = new mongoose.Schema({
+    gameName: String,
+    yesterday: Number,
+    today: Number,
+    createdAt: String,
+  });
+  
+const Game = mongoose.model("Game", GameSchema);
+
+
+app.get("/api/save", async (req, res) => {
+    try {
+      const response = await fetch("https://lottery-r1m7.onrender.com/api/headers"); // call your own scrape API
+      const data = await response.json();
+  
+      // Save primary results into DB
+      if (data.primary && data.primary.length > 0) {
+        await Game.insertMany(data.primary);
+      }
+  
+      res.json({ success: true, message: "Data saved to MongoDB!" });
+    } catch (err) {
+      console.error("Error saving:", err);
+      res.status(500).json({ success: false, error: err.message });
+    }
+});
+
+app.get("/api/own_data", async (req, res) => {
+    try {
+      const results = await Game.find().sort({ _id: -1 }).limit(50); // latest 50 entries
+      res.json(results);
+    } catch (err) {
+      res.status(500).json({ error: "Failed to fetch from DB" });
+    }
+});
+
+
 // app.get("/api/headers", async (req, res) => {
 //   try {
 //     const response = await fetch(
