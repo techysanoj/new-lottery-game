@@ -33,22 +33,30 @@ const GameSchema = new mongoose.Schema({
 const Game = mongoose.model("Game", GameSchema);
 
 
-app.get("/api/save", async (req, res) => {
+app.post("/api/save-manual", async (req, res) => {
     try {
-      const response = await fetch("https://lottery-r1m7.onrender.com/api/headers"); // call your own scrape API
-      const data = await response.json();
+      const { gameName, yesterday, today, createdAt } = req.body;
   
-      // Save primary results into DB
-      if (data.primary && data.primary.length > 0) {
-        await Game.insertMany(data.primary);
+      if (!gameName) {
+        return res.status(400).json({ success: false, error: "gameName is required" });
       }
   
-      res.json({ success: true, message: "Data saved to MongoDB!" });
+      const newGame = new Game({
+        gameName,
+        yesterday,
+        today,
+        createdAt,
+      });
+  
+      await newGame.save();
+  
+      res.json({ success: true, message: "Data saved to MongoDB!", data: newGame });
     } catch (err) {
       console.error("Error saving:", err);
       res.status(500).json({ success: false, error: err.message });
     }
-});
+  });
+  
 
 app.get("/api/own_data", async (req, res) => {
     try {
