@@ -2,13 +2,16 @@
 import express from "express";
 import fetch from "node-fetch";
 import cors from "cors";
-
+import dotenv from "dotenv";
+dotenv.config(); 
 
 const app = express();
 app.use(cors()); // allow frontend access
+app.use(express.json()); 
 
 
 import mongoose from "mongoose";
+
 
 // ✅ connect to MongoDB Atlas
 mongoose.connect(process.env.MONGO_URI || "your-mongodb-uri-here", {
