@@ -7,6 +7,9 @@ dotenv.config();
 
 const app = express();
 app.use(cors()); // allow frontend access
+app.use(cors({
+    origin: "https://techysanoj.github.io/new-lottery-game/"  // only this site can access
+  }));
 app.use(express.json()); 
 
 
