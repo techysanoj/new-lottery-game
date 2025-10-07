@@ -54,7 +54,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("https://lottery-r1m7.onrender.com/api/headers"); // use proxy!
+        const res = await fetch("https://lottery-game-secret.onrender.com/api/headers"); // use proxy!
         const json = await res.json();
         setUpcoming(json.upcoming || []);
         setPrimary(json.primary || []);
@@ -73,7 +73,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchLuckyResults = async () => {
       try {
-        const res = await fetch("https://lottery-r1m7.onrender.com/api/lucky"); // adjust URL if needed
+        const res = await fetch("https://lottery-game-secret.onrender.com/api/lucky"); // adjust URL if needed
         const json = await res.json();
         setMonthTitle(json.title || "");
         setMonthTables(json.tables || []);
