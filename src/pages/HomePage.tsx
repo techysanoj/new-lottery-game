@@ -32,7 +32,6 @@ const HomePage = () => {
         const formattedTables: { [key: string]: any[] } = {};
   
         Object.entries(json).forEach(([tableName, items]) => {
-          console.log("tableName, items", tableName, items);
           formattedTables[tableName] = (items as any[]).map((item) => ({
             city: (item.city || "").toUpperCase(),
             time: item.time || "",
@@ -57,7 +56,6 @@ const HomePage = () => {
       try {
         const res = await fetch("https://lottery-r1m7.onrender.com/api/headers"); // use proxy!
         const json = await res.json();
-        console.log('json', json)
         setUpcoming(json.upcoming || []);
         setPrimary(json.primary || []);
       } catch (err) {
@@ -77,7 +75,6 @@ const HomePage = () => {
       try {
         const res = await fetch("https://lottery-r1m7.onrender.com/api/lucky"); // adjust URL if needed
         const json = await res.json();
-        console.log('json', json)
         setMonthTitle(json.title || "");
         setMonthTables(json.tables || []);
       } catch (err) {
