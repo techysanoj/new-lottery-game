@@ -1,0 +1,16 @@
+{
+    "name": "lottery-api",
+    "version": "1.0.0",
+    "type": "module",
+    "scripts": {
+        "start": "node api.js"
+    },
+    "dependencies": {
+        "cheerio": "^1.0.0-rc.12",
+        "cors": "^2.8.5",
+        "dotenv": "^17.2.3",
+        "express": "^4.18.2",
+        "mongoose": "^8.19.0",
+        "node-fetch": "^3.3.1"
+    }
+}
