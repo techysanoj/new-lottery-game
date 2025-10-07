@@ -12,7 +12,8 @@ import * as cheerio from "cheerio";
 dotenv.config();
 
 const app = express();
-app.use(cors({ origin: "https://techysanoj.github.io" }));
+app.use(cors({ origin: "*" }));
+
 app.use(express.json());
 
 // ✅ MongoDB connection

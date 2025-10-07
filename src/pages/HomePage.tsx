@@ -25,7 +25,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch("https://lottery-r1m7.onrender.com/api/lottery"); // proxy endpoint
+        const res = await fetch("https://lottery-game-latest.onrender.com/api/lottery"); // proxy endpoint
         const json = await res.json();
   
         // The API now returns { tablebox1: [...], tablebox2: [...], tablebox3: [...] }

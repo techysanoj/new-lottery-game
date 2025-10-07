@@ -6,7 +6,8 @@ import * as cheerio from "cheerio";
 import { parseTimeToHHMM } from "./utils/parseTime.js";
 
 const app = express();
-app.use(cors({ origin: "https://techysanoj.github.io" }));
+app.use(cors({ origin: "*" }));
+
 app.use(express.json());
 
 // ✅ /api/headers
